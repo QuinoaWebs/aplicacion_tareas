@@ -5,7 +5,7 @@ const hbs = require('hbs')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const app = express()
-const port = process.env.PORT || 3000
+
 
 
 
@@ -25,6 +25,8 @@ mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true})
 
 
 
+//port
+app.set('port', process.env.PORT || 3000);    
 //motor de plantillas
 hbs.registerPartials(path.join(__dirname, '/views/partials'))
 app.set('view engine', 'hbs')
@@ -45,8 +47,8 @@ app.use((req, res, next) => {
 })
 
 //servidor a la escucha
-app.listen(port, ()=>{
-    console.log(`servidor escuchando en el puerto ${port}`)
+app.listen(app.get('port'), ()=>{
+    console.log(`servidor escuchando en el puerto ${app.get('port')}`)
 })
 
 
